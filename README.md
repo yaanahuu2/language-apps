@@ -1,18 +1,22 @@
 # LanguageApps
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1. 
+
+## About
+### Micro-apps
+This project is currently experimental. The goal is to migrate multiple one-off applications into a common Angular monorepo workspace, following a micro application architecture. Existing language apps will be refactored micro-apps and imported into app containers (e.g. language website, container for mobile build with NativeScript). 
+### Libraries
+While we prefer minimal dependencies, we do make use of well-established libraries. When adding new UI componenets, we first look at the Angular Material library. If no component exists, and we anticipate possible reuse of the proposed component across multiple applications in the workspace, we will develop the custom component as a library within the same workspace.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve --project <project-name>` for a dev server. Navigate to `http://localhost:4200/`. 
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng generate component component-name --project <project-name>` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Building and Linking
 
 ## Running unit tests
 
