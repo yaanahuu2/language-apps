@@ -2,5 +2,123 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "alphabet": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/alphabet",
+      "sourceRoot": "projects/alphabet/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/alphabet",
+            "index": "projects/alphabet/src/index.html",
+            "main": "projects/alphabet/src/main.ts",
+            "polyfills": "projects/alphabet/src/polyfills.ts",
+            "tsConfig": "projects/alphabet/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/alphabet/src/favicon.ico",
+              "projects/alphabet/src/assets"
+            ],
+            "styles": [
+              "projects/alphabet/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/alphabet/src/environments/environment.ts",
+                  "with": "projects/alphabet/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "alphabet:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "alphabet:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "alphabet:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/alphabet/src/test.ts",
+            "polyfills": "projects/alphabet/src/polyfills.ts",
+            "tsConfig": "projects/alphabet/tsconfig.spec.json",
+            "karmaConfig": "projects/alphabet/karma.conf.js",
+            "assets": [
+              "projects/alphabet/src/favicon.ico",
+              "projects/alphabet/src/assets"
+            ],
+            "styles": [
+              "projects/alphabet/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/alphabet/tsconfig.app.json",
+              "projects/alphabet/tsconfig.spec.json",
+              "projects/alphabet/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/alphabet/e2e/protractor.conf.js",
+            "devServerTarget": "alphabet:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "alphabet:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "alphabet"
 }
