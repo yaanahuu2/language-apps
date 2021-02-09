@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { pipe } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
 import { Card } from '../../services/IAlphabetAPI';
 
@@ -21,12 +23,13 @@ export class TileComponent implements OnInit {
   ngOnInit(): void {
     this.data.getAlphabetSize().subscribe((data:number)=>{
       this.alphabetSize = data;
-    }); // Switch to pipe map
-    this.updateCard(this._tileNumber);
+      this.updateCard(this._tileNumber);
+    })
   }
-
+    
   updateCard(newTileNumber: number){
-    if(newTileNumber < 0 || !Number.isInteger(newTileNumber)) throw new Error(`Tile number must be a positive integer.`);
+    newTileNumber = Number(newTileNumber); // convert string to number
+    if(newTileNumber < 0 || !Number.isInteger(newTileNumber)) throw new Error(`Tile number ${newTileNumber} is not a positive integer.`);
     this._tileNumber = newTileNumber;
     this.data.getCardBySequenceNumber(this._tileNumber).subscribe((data:Card)=>{
       this.card = data;
