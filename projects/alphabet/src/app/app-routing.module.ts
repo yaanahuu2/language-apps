@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DetailComponent } from './pages/detail/detail.component';
 import { MenuComponent } from './pages/menu/menu.component';
 
 const routes: Routes = [
-  {"path": "","component": MenuComponent }
+  {"path": "","component": MenuComponent },
+  {"path": "detail/:id", "component": DetailComponent}
 ];
 
 @NgModule({

@@ -1,1 +1,5 @@
-<p>detail works!</p>
+<div *ngIf="alphabetSize && tileNumber">
+    <alphabet-tile [num]="tileNumber"></alphabet-tile>
+    <img src="https://api.tsilhqotinlanguage.ca/uploads/thumbnail_left_arrow_1964c98834.png" (click)="handleLeftArrowClick()">
+    <img src="https://api.tsilhqotinlanguage.ca/uploads/thumbnail_right_arrow_9dcea0d92b.png" (click)="handleRightArrowClick()">    
+</div>

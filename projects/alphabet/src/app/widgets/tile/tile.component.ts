@@ -38,33 +38,4 @@ export class TileComponent implements OnInit {
       this.card = data;
     });
   }
-
-  cyclicIncrement(n:number,maxNumber:number){
-    n++;
-    if(n < 0 || n > maxNumber + 1) throw new Error(`Index ${n} out of bounds.`); 
-    return (n++) % maxNumber;
-  }
-
-  cyclicDecrement(n:number,maxNumber:number){
-    let startingIndex: number = 1;
-    n--;
-    if(n === startingIndex - 1) return maxNumber;
-    if(n < startingIndex || n > maxNumber) throw new Error(`Index out of bounds: ${n}`);
-    return n;
-  }
-
-  handleLeftArrowClick(){
-    if(!this._active) return; // Freeze inactive card's state
-
-    this._tileNumber = this.cyclicDecrement(this._tileNumber,this.alphabetSize);
-    this.updateCard(this._tileNumber);
-  }
-
-  handleRightArrowClick(){
-    if(!this._active) return; // Freeze inactive card's state
-    
-    this._tileNumber = this.cyclicIncrement(this._tileNumber,this.alphabetSize);
-    this.updateCard(this._tileNumber);
-  }
-
 }
