@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
 
@@ -13,7 +13,7 @@ export class DetailComponent implements OnInit {
   alphabetSize: number;
   tileNumber: number;
 
-  constructor( private data: AlphabetService, private route:ActivatedRoute ) { }
+  constructor( private data: AlphabetService, private route:ActivatedRoute, private router: Router ) { }
 
   ngOnInit(): void {
     this.data.getAlphabetSize().subscribe((data:number)=>{
@@ -47,5 +47,11 @@ export class DetailComponent implements OnInit {
 
   handleRightArrowClick(){
     this.tileNumber = this.cyclicIncrement(this.tileNumber,this.alphabetSize);
+  }
+
+  navigateToIndex(message: string){
+    console.log(message);
+    console.log(`Returning to menu.`);
+    this.router.navigate(['/menu']);
   }
 }

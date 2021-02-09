@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { pipe, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { pipe, Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { AlphabetAPI, Card } from './IAlphabetApi';
 
 @Injectable({
@@ -18,7 +18,15 @@ export class AlphabetService implements AlphabetAPI {
 
   getCardBySequenceNumber(n: number): Observable<Card>{
     let endpoint: string = `${this.baseAPIURL}${this.endpoints.getCard}${n}`;
-    return this.http.get(endpoint).pipe(
+    return this.http.get(endpoint)
+    .pipe(
+      catchError(error =>{
+        let errorMsg: string;
+        errorMsg = error.error instanceof ErrorEvent ? `Error: ${error.error.message}` : String(error.status);
+        return throwError(errorMsg);
+      })
+    )
+    .pipe(
       map((data:any)=>{
         let card: Card = {
           'sequenceNumber': data.sequence_number,

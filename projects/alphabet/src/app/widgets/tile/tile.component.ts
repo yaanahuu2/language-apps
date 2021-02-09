@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
 import { Card } from '../../services/IAlphabetAPI';
 
@@ -21,6 +23,11 @@ export class TileComponent implements OnInit {
     this._active = activeState;
   }
 
+  @Output() public cardNotFound = new EventEmitter<string>();
+  alertCardNotFound(){
+    this.cardNotFound.emit(`Card not found: ${this._tileNumber}`);
+  }
+
   constructor( private data: AlphabetService ) { }
 
   ngOnInit(): void {
@@ -34,8 +41,16 @@ export class TileComponent implements OnInit {
     newTileNumber = Number(newTileNumber); // convert string to number
     if(newTileNumber < 0 || !Number.isInteger(newTileNumber)) throw new Error(`Tile number ${newTileNumber} is not a positive integer.`);
     this._tileNumber = newTileNumber;
-    this.data.getCardBySequenceNumber(this._tileNumber).subscribe((data:Card)=>{
-      this.card = data;
+    this.data.getCardBySequenceNumber(this._tileNumber)
+    .pipe(
+      catchError((error:any) =>{
+        console.log(error.message);
+        this.alertCardNotFound();
+        return of([]);
+      })
+    )
+    .subscribe((data:Card)=>{
+      if(data) this.card = data;
     });
   }
 }

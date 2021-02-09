@@ -4,7 +4,7 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { MenuComponent } from './pages/menu/menu.component';
 
 const routes: Routes = [
-  {"path": "","component": MenuComponent },
+  {"path": "menu","component": MenuComponent },
   {"path": "detail/:id", "component": DetailComponent}
 ];
 
