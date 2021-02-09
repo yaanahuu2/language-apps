@@ -1,17 +1,18 @@
-import Observable from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface AlphabetAPI {
     getCardBySequenceNumber(n: number): Observable<Card>,
     getAlphabetSize(): Observable<number>
 }
 
-type Card = {
-    "sequence_number": number,
+export type Card = {
+    "sequenceNumber": number,
     "letter": TextWithAudio,
-    "word": TextWithAudio
+    "word": TextWithAudio,
+    "imageURL": string
 }
 
 type TextWithAudio = {
-    "text": "string",
-    "audioURL": "string"
+    "text": string,
+    "audioURL": string
 }
