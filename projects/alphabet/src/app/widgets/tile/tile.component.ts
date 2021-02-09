@@ -11,9 +11,14 @@ export class TileComponent implements OnInit {
   alphabetSize: number;
   card: Card;
   _tileNumber: number;
+  _active: boolean = true; // card must be explicitly inactivated using Input property active
 
   @Input() public set num(n: number){
     this._tileNumber = n;
+  }
+
+  @Input() public set active(activeState: boolean){
+    this._active = activeState;
   }
 
   constructor( private data: AlphabetService ) { }
@@ -49,11 +54,15 @@ export class TileComponent implements OnInit {
   }
 
   handleLeftArrowClick(){
+    if(!this._active) return; // Freeze inactive card's state
+
     this._tileNumber = this.cyclicDecrement(this._tileNumber,this.alphabetSize);
     this.updateCard(this._tileNumber);
   }
 
   handleRightArrowClick(){
+    if(!this._active) return; // Freeze inactive card's state
+    
     this._tileNumber = this.cyclicIncrement(this._tileNumber,this.alphabetSize);
     this.updateCard(this._tileNumber);
   }
