@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { pipe } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
 import { Card } from '../../services/IAlphabetAPI';
 

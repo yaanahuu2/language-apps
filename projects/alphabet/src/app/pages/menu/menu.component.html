@@ -1,2 +1,7 @@
+<div id ="menu" *ngIf="menuItemNumbers">
+    <div *ngFor="let row of menuItemNumbers">
+        <div id="menu-row" *ngFor="let tileNumber of row">
+            <alphabet-tile [num]="tileNumber"></alphabet-tile>     
+        </div>
+</div>
 
-<alphabet-tile num="5"></alphabet-tile>
