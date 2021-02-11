@@ -12,12 +12,14 @@ export class DetailComponent implements OnInit {
 
   alphabetSize: number;
   tileNumber: number;
+  private _active: boolean = false; // deactivate arrow clicks initially
 
   constructor( private data: AlphabetService, private route:ActivatedRoute, private router: Router ) { }
 
   ngOnInit(): void {
     this.data.getAlphabetSize().subscribe((data:number)=>{
       this.alphabetSize = data;
+      this._active = true; // enable left \ right arrow click once Alphabet Size is known
     });
 
     this.route.params
@@ -30,7 +32,7 @@ export class DetailComponent implements OnInit {
   cyclicIncrement(n:number,maxNumber:number){
     n++;
     if(n < 0 || n > maxNumber + 1) throw new Error(`Index ${n} out of bounds.`); 
-    return (n++) % maxNumber;
+    return (n++) % maxNumber + 1;
   }
 
   cyclicDecrement(n:number,maxNumber:number){
@@ -42,10 +44,12 @@ export class DetailComponent implements OnInit {
   }
 
   handleLeftArrowClick(){
+    if(!this._active) return;
     this.tileNumber = this.cyclicDecrement(this.tileNumber,this.alphabetSize);
   }
 
   handleRightArrowClick(){
+    if(!this._active) return;
     this.tileNumber = this.cyclicIncrement(this.tileNumber,this.alphabetSize);
   }
 

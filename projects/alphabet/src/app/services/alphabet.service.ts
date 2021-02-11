@@ -8,11 +8,11 @@ import { AlphabetAPI, Card } from './IAlphabetApi';
   providedIn: 'root'
 })
 export class AlphabetService implements AlphabetAPI {
-  baseAPIURL: string = "https://api.tsilhqotinlanguage.ca"
+  baseAPIURL: string = "https://api.tsilhqotinlanguage.ca";
   endpoints: any = {
     "getCard": "/alphabet-cards/",
     "getCount": "/alphabet-cards/count"
-  }
+  };
 
   constructor( private http: HttpClient ) { }
 

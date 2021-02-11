@@ -10,13 +10,16 @@ import { Card } from '../../services/IAlphabetAPI';
   styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
-  alphabetSize: number;
   card: Card;
   _tileNumber: number;
   _active: boolean = true; // card must be explicitly inactivated using Input property active
-
+  private _ready: boolean = false;
   @Input() public set num(n: number){
+    // tile state is controlled from outside solely by num property
+    if(!this._active) return;
+    
     this._tileNumber = n;
+    this.updateCard(this._tileNumber); // update card state for new num
   }
 
   @Input() public set active(activeState: boolean){
@@ -31,10 +34,7 @@ export class TileComponent implements OnInit {
   constructor( private data: AlphabetService ) { }
 
   ngOnInit(): void {
-    this.data.getAlphabetSize().subscribe((data:number)=>{
-      this.alphabetSize = data;
       this.updateCard(this._tileNumber);
-    })
   }
     
   updateCard(newTileNumber: number){
