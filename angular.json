@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "alphabet"
+    }
+  },
+  "defaultProject": "alphabet",
+  "cli": {
+    "defaultCollection": "@nativescript/schematics"
+  }
 }

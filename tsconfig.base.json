@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -15,6 +14,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@src/*": [
+        "projects/alphabet/src/*.android.ts",
+        "projects/alphabet/src/*.ios.ts",
+        "projects/alphabet/src/*.tns.ts",
+        "projects/alphabet/src/*.web.ts",
+        "projects/alphabet/src/*"
+      ]
+    }
   }
 }
