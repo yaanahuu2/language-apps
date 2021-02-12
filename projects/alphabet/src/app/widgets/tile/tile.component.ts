@@ -39,11 +39,12 @@ export class TileComponent implements OnInit {
 
   @Output() public cardClicked = new EventEmitter<TileClickEventData>();
   handleClick(region: CardRegion){
+    if(!this._active) return;
     let data: TileClickEventData = {
       "region": region,
       "cardNumber": this._tileNumber
     }
-    this.audio.playAudioFromURL(this.card.word.audioURL);
+    this.playAudioForRegion(data.region);
     this.cardClicked.emit(data);
   }
 
@@ -68,5 +69,15 @@ export class TileComponent implements OnInit {
     .subscribe((data:Card)=>{
       if(data) this.card = data;
     });
+  }
+
+  private playAudioForRegion(region: CardRegion){
+    let audioURL: string = this.getAudioURLForRegion(region);
+    this.audio.playAudioFromURL(audioURL);
+  }
+
+  private getAudioURLForRegion(region: CardRegion){
+    if(region === CardRegion.IMAGE || region === CardRegion.WORD) return this.card.word.audioURL;
+    if(region === CardRegion.LETTER) return this.card.letter.audioURL;
   }
 }
