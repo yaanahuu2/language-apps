@@ -4,6 +4,8 @@ import { catchError } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
 import { Card } from '../../services/IAlphabetAPI';
 import { CardRegion } from './card-region';
+import { TileClickEventData } from './tile-click-event-data';
+import { AudioService } from '../../services/audio.service';
 
 @Component({
   selector: 'alphabet-tile',
@@ -35,12 +37,17 @@ export class TileComponent implements OnInit {
     this.cardNotFound.emit(`Card not found: ${this._tileNumber}`);
   }
 
-  @Output() public cardClicked = new EventEmitter<CardRegion>();
+  @Output() public cardClicked = new EventEmitter<TileClickEventData>();
   handleClick(region: CardRegion){
-    this.cardClicked.emit(region);
+    let data: TileClickEventData = {
+      "region": region,
+      "cardNumber": this._tileNumber
+    }
+    this.audio.playAudioFromURL(this.card.word.audioURL);
+    this.cardClicked.emit(data);
   }
 
-  constructor( private data: AlphabetService ) { }
+  constructor( private data: AlphabetService, private audio: AudioService ) { }
 
   ngOnInit(): void {
       this.updateCard(this._tileNumber);

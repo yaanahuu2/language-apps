@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
+import { CardRegion } from '../../widgets/tile/card-region';
+import { TileClickEventData } from '../../widgets/tile/tile-click-event-data';
 
 @Component({
   selector: 'app-detail',
@@ -59,21 +61,23 @@ export class DetailComponent implements OnInit {
     this.router.navigate(['/menu']);
   }
 
-  handleCardClick(region: string){
-    if(region === "LETTER") this.handleLetterClick();
-    if(region === "WORD") this.handleWordClick();
-    if(region === "IMAGE") this.handleImageClick();
+  handleCardClick(eventData: TileClickEventData){
+    let region: CardRegion = eventData.region;
+    let cardNumber: number = eventData.cardNumber;
+    if(region === "LETTER") this.handleLetterClick(cardNumber);
+    if(region === "WORD") this.handleWordClick(cardNumber);
+    if(region === "IMAGE") this.handleImageClick(cardNumber);
   }
 
-  private handleLetterClick(){
-    console.log(`You clicked a letter.`);
+  private handleLetterClick(cardNumber: number){
+    console.log(`You clicked letter ${cardNumber}.`);
   }
 
-  private handleWordClick(){
-    console.log(`You clicked a word.`);
+  private handleWordClick(cardNumber: number){
+    console.log(`You clicked word ${cardNumber}.`);
   }
 
-  private handleImageClick(){
-    console.log(`You clicked an image.`);
+  private handleImageClick(cardNumber: number){
+    console.log(`You clicked image ${cardNumber}.`);
   }
 }
