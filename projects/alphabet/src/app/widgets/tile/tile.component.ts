@@ -39,13 +39,13 @@ export class TileComponent implements OnInit {
 
   @Output() public cardClicked = new EventEmitter<TileClickEventData>();
   handleClick(region: CardRegion){
-    if(!this._active) return;
     let data: TileClickEventData = {
       "region": region,
       "cardNumber": this._tileNumber
     }
-    this.playAudioForRegion(data.region);
     this.cardClicked.emit(data);
+    if(!this._active) return; // do not play audio if tile is inactive
+    this.playAudioForRegion(data.region);
   }
 
   constructor( private data: AlphabetService, private audio: AudioService ) { }

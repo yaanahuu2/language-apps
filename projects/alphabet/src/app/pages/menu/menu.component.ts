@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlphabetService } from '../../services/alphabet.service';
-import { Card } from '../../services/IAlphabetAPI';
+import { Router } from '@angular/router';
+import { TileClickEventData } from '../../widgets/tile/tile-click-event-data';
 
 type MenuDimensions = {
   "width": number,
@@ -20,7 +21,7 @@ export class MenuComponent implements OnInit {
   numberOfColumns: number;
   menuItemNumbers: number[][];
 
-  constructor( private data: AlphabetService ) { }
+  constructor( private data: AlphabetService, private router: Router ) { }
 
   ngOnInit(): void {
     this.data.getAlphabetSize().subscribe((data:number)=>{
@@ -59,6 +60,13 @@ export class MenuComponent implements OnInit {
 
   private assertPositiveInteger(n: number){
     if(!Number.isInteger(n) || n < 0) throw new Error(`Expected positive integer. Received ${n}.`);
+  }
+
+  handleCardClick(data: TileClickEventData){
+    let id: string = String(data.cardNumber);
+    let redirectRoute: string = `detail/${id}`;
+    console.log(`Redirecting to ${redirectRoute}`);
+    this.router.navigate([redirectRoute]);
   }
 
 }

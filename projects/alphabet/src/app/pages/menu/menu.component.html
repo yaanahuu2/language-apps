@@ -1,7 +1,7 @@
 <div id ="menu" *ngIf="menuItemNumbers">
     <div *ngFor="let row of menuItemNumbers">
         <div id="menu-row" *ngFor="let tileNumber of row">
-            <alphabet-tile [num]="tileNumber" [active]="false"></alphabet-tile>     
+            <alphabet-tile [num]="tileNumber" [active]="false" (cardClicked)="handleCardClick($event)"></alphabet-tile>     
         </div>
     </div>
 </div>
