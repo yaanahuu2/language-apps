@@ -1,5 +1,5 @@
 <div *ngIf="card">
-    <div>{{ card.letter.text }}</div>
-    <img [src]="card.imageURL">
-    <div>{{ card.word.text }}</div>
+    <div (click)="handleClick(letterRegion)">{{ card.letter.text }}</div>
+    <img (click)="handleClick(imageRegion)" [src]="card.imageURL">
+    <div (click)="handleClick(wordRegion)">{{ card.word.text }}</div>
 </div>

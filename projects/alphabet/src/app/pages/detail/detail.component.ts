@@ -58,4 +58,22 @@ export class DetailComponent implements OnInit {
     console.log(`Returning to menu.`);
     this.router.navigate(['/menu']);
   }
+
+  handleCardClick(region: string){
+    if(region === "LETTER") this.handleLetterClick();
+    if(region === "WORD") this.handleWordClick();
+    if(region === "IMAGE") this.handleImageClick();
+  }
+
+  private handleLetterClick(){
+    console.log(`You clicked a letter.`);
+  }
+
+  private handleWordClick(){
+    console.log(`You clicked a word.`);
+  }
+
+  private handleImageClick(){
+    console.log(`You clicked an image.`);
+  }
 }

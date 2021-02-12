@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AlphabetService } from '../../services/alphabet.service';
 import { Card } from '../../services/IAlphabetAPI';
+import { CardRegion } from './card-region';
 
 @Component({
   selector: 'alphabet-tile',
@@ -10,6 +11,9 @@ import { Card } from '../../services/IAlphabetAPI';
   styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
+  letterRegion = CardRegion.LETTER;
+  wordRegion = CardRegion.WORD;
+  imageRegion = CardRegion.IMAGE;
   card: Card;
   _tileNumber: number;
   _active: boolean = true; // card must be explicitly inactivated using Input property active
@@ -17,7 +21,7 @@ export class TileComponent implements OnInit {
   @Input() public set num(n: number){
     // tile state is controlled from outside solely by num property
     if(!this._active) return;
-    
+
     this._tileNumber = n;
     this.updateCard(this._tileNumber); // update card state for new num
   }
@@ -29,6 +33,11 @@ export class TileComponent implements OnInit {
   @Output() public cardNotFound = new EventEmitter<string>();
   alertCardNotFound(){
     this.cardNotFound.emit(`Card not found: ${this._tileNumber}`);
+  }
+
+  @Output() public cardClicked = new EventEmitter<CardRegion>();
+  handleClick(region: CardRegion){
+    this.cardClicked.emit(region);
   }
 
   constructor( private data: AlphabetService ) { }
