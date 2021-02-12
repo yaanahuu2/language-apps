@@ -11,7 +11,8 @@ export class AlphabetService implements AlphabetAPI {
   baseAPIURL: string = "https://api.tsilhqotinlanguage.ca";
   endpoints: any = {
     "getCard": "/alphabet-cards/",
-    "getCount": "/alphabet-cards/count"
+    "getCount": "/alphabet-cards/count",
+    "getCredits": "/apps/?name_english=Alphabet"
   };
 
   constructor( private http: HttpClient ) { }
@@ -52,5 +53,14 @@ export class AlphabetService implements AlphabetAPI {
         return Number(data);
       })
     );
+  }
+
+  getAlphabetCredits(): Observable<Object>{
+    let endpoint: string = `${this.baseAPIURL}${this.endpoints.getCredits}`;
+    return this.http.get(endpoint).pipe(
+      map((data:any) => {
+        return data.credits;
+      })
+    )
   }
 }

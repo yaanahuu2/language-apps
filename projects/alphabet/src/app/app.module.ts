@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { TileComponent } from './widgets/tile/tile.component';
 import { DetailComponent } from './pages/detail/detail.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CreditsComponent } from './pages/credits/credits.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     TileComponent,
-    DetailComponent
+    DetailComponent,
+    HomeComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
