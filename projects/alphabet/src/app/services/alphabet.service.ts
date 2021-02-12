@@ -59,7 +59,7 @@ export class AlphabetService implements AlphabetAPI {
     let endpoint: string = `${this.baseAPIURL}${this.endpoints.getCredits}`;
     return this.http.get(endpoint).pipe(
       map((data:any) => {
-        return data.credits;
+        return data[0].credits;
       })
     )
   }
